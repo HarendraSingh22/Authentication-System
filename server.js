@@ -1,0 +1,41 @@
+const express = require('express')
+const session = require('express-session')
+
+
+const {
+    db
+} = require('./db')
+
+const app = express()
+
+const passport = require('./passport')
+
+app.use(express.json())
+app.use(express.urlencoded({extended: true}))
+
+app.use(session ({
+    secret: "bcwbchakjdhioehdiue13u43o-duih37e-di3j9",
+    name: "MyCookieName"
+}))
+
+app.use(passport.initialize())
+app.use(passport.session())
+
+app.set('view engine', 'hbs')
+
+// app.use((req, res) => {
+//     console.log('Session');
+//     next()
+// })
+
+app.use('/signup', require('./routes/signup'))
+app.use('/login', require('./routes/login'))
+app.use('/profile', require('./routes/profile'))
+
+db.sync()
+.then(() => {
+    app.listen(4000, () => {
+        console.log("Server started on http://localhost:4000")
+    })
+})
+.catch(console.error)
