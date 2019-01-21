@@ -5,7 +5,11 @@ const {
     } = require('../db')
 
 route.get('/', (req, res) => {
-    res.render('signup')
+    if(req.user) {
+        res.redirect('/profile')
+    } else {
+        res.render('signup')
+    }
 })
 
 route.post('/', async (req, res) => {

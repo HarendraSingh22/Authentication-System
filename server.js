@@ -31,6 +31,7 @@ app.set('view engine', 'hbs')
 app.use('/signup', require('./routes/signup'))
 app.use('/login', require('./routes/login'))
 app.use('/profile', require('./routes/profile'))
+app.use('/logout', require('./routes/logout'))
 
 db.sync()
 .then(() => {

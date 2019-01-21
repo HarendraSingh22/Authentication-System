@@ -6,7 +6,11 @@ const {
 } = require('../db')
 
 route.get('/', (req, res) => {
-    res.render('login')
+    if(req.user) {
+        res.redirect('/profile')
+    } else {
+        res.render('login')
+    }
 })
 
 route.post('/', 
